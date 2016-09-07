@@ -1,0 +1,40 @@
+{
+  "name": "maatwebsite/laravel-excel-light",
+  "description": "A faster and more eloquent way of importing and exporting Excel and CSV in Laravel with the speed of Spout",
+  "license": "MIT",
+  "keywords": [
+    "laravel",
+    "spout",
+    "excel",
+    "ods",
+    "xls",
+    "xlxs",
+    "csv",
+    "export",
+    "import",
+    "read",
+    "write"
+  ],
+  "authors": [
+    {
+      "name": "Maatwebsite.nl",
+      "email": "patrick@maatwebsite.nl"
+    }
+  ],
+  "require": {
+    "php": ">=5.4",
+    "box/spout": "~2.5",
+    "illuminate/support": "~5.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~5.1",
+    "mockery/mockery": "~0.9"
+  },
+  "autoload": {
+    "psr-4": {
+      "Maatwebsite\\ExcelLight\\": "src/"
+    }
+  },
+  "autoload-dev": {
+  }
+}
