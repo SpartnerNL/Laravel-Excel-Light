@@ -24,7 +24,7 @@ A faster and more eloquent way of importing and exporting Excel and CSV in Larav
 ### Classic usage:
 
 ```php
-$reader = (new Excel)->load(storage_path('workbook.xlsx')
+$reader = (new Excel)->load(storage_path('workbook.xlsx'));
 
 foreach ($reader->sheets() as $sheet) {
     foreach ($sheet->rows() as $row) {
