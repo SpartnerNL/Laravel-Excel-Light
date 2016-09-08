@@ -34,3 +34,16 @@ foreach ($reader->sheets() as $sheet) {
     }
 }
 ```
+
+## Writing
+
+```php
+(new Excel)->create(function (Writer $writer) {
+    $writer->sheet('sheet1', function (Writer $sheet) {
+        $sheet->rows([
+            [1, 2, 3],
+            [4, 5, 6]
+        ]);
+    });
+})->export(storage_path('workbook.xlsx'));
+```
