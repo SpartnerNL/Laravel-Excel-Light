@@ -24,6 +24,15 @@ class Writer
      */
     private $writer;
 
+
+    /**
+     * @return Box\Spout\Writer\WriterInterface
+     */
+    public function getSpoutWriter()
+    {
+        return $this->writer;
+    }
+
     /**
      * @param callable|null $callback
      * @return $this
@@ -56,13 +65,28 @@ class Writer
     /**
      * @param array $rows
      */
-    public function rows(array $rows)
+    public function addRows(array $rows)
     {
         $this->writer->addRows($rows);
     }
 
     /**
-     * @param string $path
+     * @param array $rows
+     */
+    public function addRow(array $row)
+    {
+        $this->writer->addRow($row);
+    }
+
+    /**
+     * @param array $rows
+     */
+    public function addRowWithStyle(array $row, $style)
+    {
+        $this->writer->addRowWithStyle($row, $style);
+    }
+
+    /**
      * @param string $extension
      */
     public function export($path, $extension = null)
