@@ -2,18 +2,11 @@
 
 namespace Maatwebsite\ExcelLight;
 
-use Box\Spout\Common\Type;
 use Box\Spout\Writer\WriterFactory;
 use Box\Spout\Writer\WriterInterface;
 
 class Writer
 {
-    const CSV  = Type::CSV;
-
-    const XLSX = Type::XLSX;
-
-    const ODS  = Type::ODS;
-
     /**
      * @var callable|null
      */
@@ -24,6 +17,21 @@ class Writer
      */
     private $writer;
 
+    /**
+     * @var string
+     */
+    private $extension;
+
+
+    /**
+     * @param string
+     * @return $this
+     */
+    public function setExtension($extension)
+    {
+        $this->extension = $extension;
+        return $this;
+    }
 
     /**
      * @return Box\Spout\Writer\WriterInterface
@@ -87,17 +95,33 @@ class Writer
     }
 
     /**
+     * The data will be written to a file.
+     * 
+     * @param string $outputFilePath
      * @param string $extension
      */
-    public function export($path, $extension = null)
+    public function export($outputFilePath)
     {
-        if (!$extension) {
-            // TODO: guess extension based on file path
-            $extension = Writer::XLSX;
+        $this->writer = WriterFactory::create($this->extension);
+        $this->writer->openToFile($outputFilePath);
+
+        if (is_callable($this->callback)) {
+            call_user_func($this->callback, $this);
         }
 
-        $this->writer = WriterFactory::create($extension);
-        $this->writer->openToFile($path);
+        $this->writer->close();
+    }
+
+    /**
+     * The data will be outputted directly to the browser.
+     * 
+     * @param string $outputFileName
+     * @param string $extension
+     */
+    public function response($outputFileName)
+    {
+        $this->writer = WriterFactory::create($this->extension);
+        $this->writer->openToBrowser($outputFileName);
 
         if (is_callable($this->callback)) {
             call_user_func($this->callback, $this);
