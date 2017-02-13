@@ -37,13 +37,31 @@ foreach ($reader->sheets() as $sheet) {
 
 ## Writing
 
+### To file:
+
 ```php
-(new Excel)->create(function (Writer $writer) {
-    $writer->sheet('sheet1', function (Writer $sheet) {
-        $sheet->rows([
-            [1, 2, 3],
-            [4, 5, 6]
+(new Excel)->create(Excel::XLSX)->write(function (Writer $writer) {
+    // Add one row to default sheet
+    $writer->addRow([1, 2, 3]);
+
+    // Add new sheet and put multi row data
+    $writer->sheet('NewSheet', function (Writer $sheet) {
+        $sheet->addRows([
+            [4, 5, 6],
+            [7, 8, 9]
         ]);
     });
 })->export(storage_path('workbook.xlsx'));
+```
+
+### To standart output (i.e. browser):
+
+```php
+(new Excel)->create(Excel::XLSX)->write(function (Writer $writer) {
+    $writer->addRows([
+        [1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9]
+    ]);
+})->response('workbook.xlsx');
 ```

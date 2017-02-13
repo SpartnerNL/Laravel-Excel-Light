@@ -2,8 +2,16 @@
 
 namespace Maatwebsite\ExcelLight;
 
+use Box\Spout\Common\Type;
+
 class Excel
 {
+    const CSV  = Type::CSV;
+
+    const XLSX = Type::XLSX;
+
+    const ODS  = Type::ODS;
+
     /**
      * @param  string        $filename
      * @param  callable|null $callback
@@ -19,8 +27,11 @@ class Excel
      * @param callable|null $callback
      * @return mixed
      */
-    public function create(callable $callback = null)
+    public function create($extension = null)
     {
-        return (new Writer)->write($callback);
+        if (!$extension) {
+            $extension = self::XLSX;
+        }
+        return (new Writer)->setExtension($extension);
     }
 }
