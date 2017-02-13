@@ -43,8 +43,7 @@ class Writer
     public function sheet($name, callable $callback)
     {
         if (method_exists($this->writer, 'addNewSheetAndMakeItCurrent')) {
-            $this->writer->addNewSheetAndMakeItCurrent();
-            $this->writer->getCurrentSheet()->setName($name);
+            $this->writer->addNewSheetAndMakeItCurrent()->setName($name);
         }
 
         if (is_callable($callback)) {
