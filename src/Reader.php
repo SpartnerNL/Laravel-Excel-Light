@@ -47,21 +47,17 @@ class Reader implements IteratorAggregate
      */
     public function sheets(callable $callback = null)
     {
-        $sheets = new Collection(
-            iterator_to_array($this->reader->getSheetIterator())
-        );
-
-        $sheets = $sheets->map(function (SheetInterface $sheet) {
-            return new Sheet($sheet);
-        });
-
         if (is_callable($callback)) {
-            foreach ($sheets as $sheet) {
+            $iterator = new IteratorWrapper($this->getIterator(), function($sheet) use ($callback) {
                 $callback($sheet);
-            }
+                return $sheet;
+            });
+            
+            foreach($iterator as $sheet) { /* DON'T CARE! :) */ }
+            return $iterator;
+        } else {
+            return $this->getIterator();
         }
-
-        return $sheets;
     }
 
     /**
@@ -74,6 +70,14 @@ class Reader implements IteratorAggregate
     public function getIterator()
     {
         return $this->sheets();
+    }
+    
+    public function getIterator()
+    {
+        $sheetIterator = $this->sheet->getSheetIterator();
+        return new IteratorWrapper($sheetIterator, function ($sheet) {
+            new Sheet($sheet)
+        });
     }
 
     /**

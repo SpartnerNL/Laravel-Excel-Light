@@ -48,25 +48,17 @@ class Sheet implements IteratorAggregate
      */
     public function rows(callable $callback = null)
     {
-        $rows = new Collection(
-            iterator_to_array($this->sheet->getRowIterator())
-        );
-
-        $headings = $this->isFirstRowAsHeading()
-            ? $rows->shift()
-            : $rows->keys()->toArray();
-
-        $rows = $rows->map(function (array $row) use ($headings) {
-            return new Row($row, $headings);
-        });
-
         if (is_callable($callback)) {
-            foreach ($rows as $row) {
+            $iterator = new IteratorWrapper($this->getIterator(), function($row) use ($callback) {
                 $callback($row);
-            }
+                return $row;
+            });
+            
+            foreach($iterator as $row) { /* DON'T CARE! :) */ }
+            return $iterator;
+        } else {
+            return $this->getIterator();
         }
-
-        return $rows;
     }
 
     /**
@@ -97,7 +89,21 @@ class Sheet implements IteratorAggregate
      */
     public function getIterator()
     {
-        return $this->rows();
+        $rowIterator = $this->sheet->getRowIterator();
+
+        if ($rowIterator->valid()) {
+          $rawRow = $rows->current();
+          if ($this->isFirstRowAsHeading()) {
+            $headings = $rawRow;
+            $rows->next();
+          } else {
+            $headings = array_keys($rawRow);
+          }
+        }
+            
+        return new IteratorWrapper($rowIterator, function ($rawRow) use ($headings) {
+            return new Row($row, $headings);
+        });
     }
 
     /**
