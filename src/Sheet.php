@@ -54,7 +54,7 @@ class Sheet implements IteratorAggregate
                 return $row;
             });
             
-            foreach($iterator as $row) { /* DON'T CARE! :) */ }
+            foreach($iterator as $row) { /* Just force iterating */ }
             return $iterator;
         } else {
             return $this->getIterator();

@@ -53,7 +53,7 @@ class Reader implements IteratorAggregate
                 return $sheet;
             });
             
-            foreach($iterator as $sheet) { /* DON'T CARE! :) */ }
+            foreach($iterator as $sheet) { /* Just force iterating */ }
             return $iterator;
         } else {
             return $this->getIterator();
