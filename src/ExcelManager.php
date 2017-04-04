@@ -30,8 +30,8 @@ class ExcelManager
     public function make($reader = null, $writer = null)
     {
         return new Excel(
-            $this->getReader($reader),
-            $this->getWriter($writer)
+            $this->reader($reader),
+            $this->writer($writer)
         );
     }
 
@@ -59,7 +59,7 @@ class ExcelManager
      * @throws InvalidArgumentException when unknown driver given
      * @return Reader
      */
-    public function getReader($driver = null)
+    public function reader($driver = null)
     {
         $driver = $driver !== null ? $driver : $this->getDefaultDriver();
 
@@ -78,7 +78,7 @@ class ExcelManager
      * @throws InvalidArgumentException when unknown driver given
      * @return Writer
      */
-    public function getWriter($driver)
+    public function writer($driver)
     {
         $driver = $driver !== null ? $driver : $this->getDefaultDriver();
 

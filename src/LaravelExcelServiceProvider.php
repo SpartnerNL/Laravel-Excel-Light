@@ -37,7 +37,7 @@ class LaravelExcelServiceProvider extends ServiceProvider
             /** @var ExcelManager $factory */
             $factory = $this->app->make(ExcelManager::class);
 
-            return $factory->getReader(
+            return $factory->reader(
                 $this->getReaderDriver()
             );
         });
@@ -47,7 +47,7 @@ class LaravelExcelServiceProvider extends ServiceProvider
             /** @var ExcelManager $factory */
             $factory = $this->app->make(ExcelManager::class);
 
-            return $factory->getWriter(
+            return $factory->writer(
                 $this->getWriterDriver()
             );
         });
