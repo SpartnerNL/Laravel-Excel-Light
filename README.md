@@ -10,7 +10,7 @@ composer require maatwebsite/laravel-excel-light
 Add the Service Provider in app.php
 
 ```$xslt
-Maatwebsite\Laravel\ExcelLaravelExcelServiceProvider::class
+Maatwebsite\ExcelLight\LaravelExcelServiceProvider::class
 ```
 
 The Excel class can be injected in your service:
