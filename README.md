@@ -1,5 +1,7 @@
 # Laravel Excel Light
 
+> No plans for further development and/or support. This is just an experiment to imporve the Laravel-Excel library.
+
 A faster and more eloquent way of importing and exporting Excel and CSV in Laravel with the speed of Spout.
 
 ## Installation
