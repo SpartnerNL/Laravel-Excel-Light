@@ -1,6 +1,6 @@
 # Laravel Excel Light
 
-> No plans for further development and/or support. This is just an experiment to imporve the Laravel-Excel library.
+> No plans for further development and/or support. This is just an experiment to improve the Laravel-Excel library.
 
 A faster and more eloquent way of importing and exporting Excel and CSV in Laravel with the speed of Spout.
 
@@ -36,13 +36,13 @@ public function __construct(\Maatwebsite\ExcelLight\Writer $writer)
 $excel->load(storage_path('workbook.xlsx'), function (Reader $reader) {
     $reader->sheets(function (Sheet $sheet) {
         $sheet->rows(function (Row $row) {
-        
+
             // Get a column
             $row->column('heading_key');
-            
+
             // Magic get
             $row->heading_key;
-            
+
             // Array access
             $row['heading_key'];
         });
@@ -57,11 +57,11 @@ $reader = $excel->load(storage_path('workbook.xlsx'));
 
 foreach ($reader->sheets() as $sheet) {
     foreach ($sheet->rows() as $row) {
-        
+
         $row->column('heading_key');
-    
+
         foreach ($row->cells() as $cell) {
-            
+
         }
     }
 }
@@ -76,7 +76,7 @@ $excel->create(function (Writer $writer) {
             [1, 2, 3],
             [4, 5, 6]
         ]);
-        
+
         // Add more rows
         $sheet->rows([
             [7, 8, 9],
@@ -88,7 +88,7 @@ $excel->create(function (Writer $writer) {
 
 ## Custom Readers and Writers
 
-Registering a customer reader: 
+Registering a customer reader:
 ```
 $this->app->make(\Maatwebsite\ExcelLigt\ExcelManager::class)
     ->registerReader('driverName', function() {
@@ -96,7 +96,7 @@ $this->app->make(\Maatwebsite\ExcelLigt\ExcelManager::class)
     });
 ```
 
-Registering a customer writer: 
+Registering a customer writer:
 ```
 $this->app->make(\Maatwebsite\ExcelLigt\ExcelManager::class)
     ->registerWriter('driverName', function() {
